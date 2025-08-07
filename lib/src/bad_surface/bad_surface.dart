@@ -11,7 +11,8 @@ class BadSurface extends StatefulWidget {
 }
 
 class _BadSurfaceState extends State<BadSurface> {
-  Map<String, dynamic> _fibonacciMap = {};
+  List<int> _sequence = [];
+  int _total = 0;
   bool _isLoading = false;
   String? _error;
 
@@ -38,14 +39,14 @@ class _BadSurfaceState extends State<BadSurface> {
     });
 
     try {
-      // This is a placeholder endpoint. Replace with your actual API.
-      final response = await Dio().get(
-        'https://dummyjson.com/products/${widget.number}',
+      final response = await Dio().post(
+        'https://api-fibonacci-654848717191.southamerica-east1.run.app/fibonacci',
+        data: {'fibonacci_length': widget.number},
       );
       if (response.statusCode == 200) {
         setState(() {
-          // Assuming the API returns a map.
-          _fibonacciMap = Map<String, dynamic>.from(response.data);
+          _total = response.data['total'] ?? 0;
+          _sequence = List<int>.from(response.data['sequence'] ?? []);
         });
       } else {
         setState(() {
@@ -65,23 +66,30 @@ class _BadSurfaceState extends State<BadSurface> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: Colors.deepOrangeAccent, // Use your palette token here
-      child: _isLoading
-          ? const Center(child: CircularProgressIndicator())
-          : _error != null
-          ? Center(
-              child: Text(_error!, style: const TextStyle(color: Colors.red)),
-            )
-          : _fibonacciMap.isEmpty
-          ? const Center(
-              child: Text('Enter a number to see the Fibonacci sequence.'),
-            )
-          : ListView(
-              children: _fibonacciMap.entries.map((entry) {
-                return ListTile(title: Text('${entry.key}: ${entry.value}'));
-              }).toList(),
-            ),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.deepOrangeAccent,
+        title: Text('Total: $_total'),
+      ),
+      body: Container(
+        color: Colors.deepOrangeAccent,
+        child: _isLoading
+            ? const Center(child: CircularProgressIndicator())
+            : _error != null
+            ? Center(
+                child: Text(_error!, style: const TextStyle(color: Colors.red)),
+              )
+            : _sequence.isEmpty
+            ? const Center(
+                child: Text('Enter a number to see the Fibonacci sequence.'),
+              )
+            : ListView.builder(
+                itemCount: _sequence.length,
+                itemBuilder: (context, index) {
+                  return ListTile(title: Text('${_sequence[index]}'));
+                },
+              ),
+      ),
     );
   }
 }
