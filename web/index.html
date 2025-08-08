@@ -31,8 +31,31 @@
 
   <title>alley_fibonacci</title>
   <link rel="manifest" href="manifest.json">
+  <style>
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -ms-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+    }
+  </style>
 </head>
 <body>
+  <div id="loading" class="loading">
+    <img src="images/holder.png" alt="Loading..." width="200" height="200" />
+  </div>
+  <script>
+    var loading = document.querySelector("#loading");
+    window.addEventListener('flutter-first-frame', function () {
+      loading.remove();
+    });
+  </script>
   <script src="flutter_bootstrap.js" async></script>
 </body>
 </html>
+

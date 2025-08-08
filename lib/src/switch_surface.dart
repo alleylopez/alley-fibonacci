@@ -1,14 +1,19 @@
-import 'package:alley_fibonacci/src/avr_surface/avr_surface.dart';
 import 'package:alley_fibonacci/src/bad_surface/bad_surface.dart';
+import 'package:alley_fibonacci/src/avr_surface/avr_surface.dart';
 import 'package:flutter/material.dart';
 
 class SwitchResponsive extends StatefulWidget {
   /// Width breakpoint at which to switch layout
   static const double _breakpoint = 700;
 
-  final int number;
+  final int? number;
+  final bool activated;
 
-  const SwitchResponsive({super.key, required this.number});
+  const SwitchResponsive({
+    super.key,
+    required this.number,
+    required this.activated,
+  });
 
   @override
   _SwitchResponsiveState createState() => _SwitchResponsiveState();
@@ -28,20 +33,46 @@ class _SwitchResponsiveState extends State<SwitchResponsive> {
             child: Row(
               children: [
                 Expanded(
-                  child: Center(
-                    child: FractionallySizedBox(
-                      widthFactor:
-                          0.86, // 86% del ancho disponible = 14% de márgenes totales
-                      child: AvrSurface(number: widget.number),
-                    ),
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Good Practice Example",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Expanded(
+                        child: Center(
+                          child: FractionallySizedBox(
+                            widthFactor:
+                                0.86, // 86% del ancho disponible = 14% de márgenes totales
+                            child: AvrSurface(number: widget.number),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Expanded(
-                  child: Center(
-                    child: FractionallySizedBox(
-                      widthFactor: 0.86,
-                      child: BadSurface(number: widget.number),
-                    ),
+                  child: Column(
+                    children: [
+                      const Text(
+                        "Bad Practice Example",
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Expanded(
+                        child: Center(
+                          child: FractionallySizedBox(
+                            widthFactor: 0.86,
+                            child: BadSurface(number: widget.number),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -53,8 +84,30 @@ class _SwitchResponsiveState extends State<SwitchResponsive> {
             children: [
               Center(
                 child: _showLeftChild
-                    ? AvrSurface(number: widget.number)
-                    : BadSurface(number: widget.number),
+                    ? Column(
+                        children: [
+                          const Text(
+                            "Good Practice Example",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Expanded(child: AvrSurface(number: widget.number)),
+                        ],
+                      )
+                    : Column(
+                        children: [
+                          const Text(
+                            "Bad Practice Example",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          Expanded(child: BadSurface(number: widget.number)),
+                        ],
+                      ),
               ),
               Align(
                 alignment: Alignment.bottomCenter,
