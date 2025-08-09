@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "654848717191",
+    "project_id": "alley-fibonacci",
+    "storage_bucket": "alley-fibonacci.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:654848717191:android:72c969deeb7cc393e46322",
+        "android_client_info": {
+          "package_name": "com.example.alley_fibonacci"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsYarViDzyFspBev54e05TF6IZoNDKPzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

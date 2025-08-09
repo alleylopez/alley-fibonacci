@@ -1,5 +1,6 @@
 # alley-ignore
 .env
+firebase_options.dart
 
 # Miscellaneous
 *.class

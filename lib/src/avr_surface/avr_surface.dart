@@ -152,7 +152,7 @@ class _AvrSurfaceState extends State<AvrSurface> {
         textAlign: TextAlign.center,
       );
     }
-    if (_fibonacciMap.isEmpty) {
+    if (_fibonacciMap.isEmpty || _fibonacciMap['sequence'] == null) {
       return const Text(
         'Enter a number to generate the Fibonacci sequence.',
         style: TextStyle(color: Colors.white, fontSize: 16),
@@ -160,13 +160,13 @@ class _AvrSurfaceState extends State<AvrSurface> {
       );
     }
 
-    final sequence = _fibonacciMap['sequence'] as List<dynamic>? ?? [];
+    final sequence = _fibonacciMap['sequence'] as List<dynamic>;
     return ListView.builder(
       itemCount: sequence.length,
       itemBuilder: (context, index) {
         return ListTile(
           title: Text(
-            sequence[index].toString(),
+            'Key: $index, Value: ${sequence[index]}',
             style: const TextStyle(color: Colors.white),
           ),
         );

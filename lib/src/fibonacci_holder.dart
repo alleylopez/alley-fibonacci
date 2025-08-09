@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:alley_fibonacci/src/switch_surface.dart'; // Ajusta según ruta correcta
+import 'package:alley_fibonacci/src/switch_surface.dart'; // Adjust the path accordingly
 
 class FibonacciHolder extends StatefulWidget {
   const FibonacciHolder({super.key, required this.title});
@@ -12,7 +12,7 @@ class FibonacciHolder extends StatefulWidget {
 
 class _FibonacciHolderState extends State<FibonacciHolder> {
   int? _inputNumber;
-  bool _activated = false; 
+  bool _activated = false;
 
   void _showNumberInputDialog() {
     TextEditingController controller = TextEditingController(
@@ -23,13 +23,13 @@ class _FibonacciHolderState extends State<FibonacciHolder> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Ingrese un Número'),
+          title: const Text('Enter a Number'),
           content: TextField(
             controller: controller,
             keyboardType: TextInputType.number,
             autofocus: true,
             decoration: const InputDecoration(
-              hintText: "Número entre 1 y 1000",
+              hintText: "Number between 1 and 1000",
             ),
           ),
           actions: [
@@ -40,7 +40,7 @@ class _FibonacciHolderState extends State<FibonacciHolder> {
 
                 setState(() {
                   _inputNumber = number;
-                  _activated = true; 
+                  _activated = true;
                 });
                 Navigator.of(context).pop();
               },
@@ -50,7 +50,7 @@ class _FibonacciHolderState extends State<FibonacciHolder> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: const Text('Cancelar'),
+              child: const Text('Cancel'),
             ),
           ],
         );
@@ -62,18 +62,48 @@ class _FibonacciHolderState extends State<FibonacciHolder> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('Fibonacci: ${_inputNumber ?? 'N/A'}'),
+        automaticallyImplyLeading: false,
+        title: Builder(
+          builder: (context) {
+            return Row(
+              children: [
+                IconButton(
+                  icon: Image.asset(
+                    'assets/images/fibonacci_logo.png',
+                    height: 40,
+                  ),
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+                  },
+                ),
+                Text(
+                  'Alley Fibonacci${_inputNumber != null ? ': $_inputNumber' : ''}',
+                ),
+              ],
+            );
+          },
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(color: Colors.blue),
+              child: Text('Mathematical Concepts'),
+            ),
+            ListTile(title: const Text('Fibonacci')),
+            ListTile(title: const Text("Euler's Constant")),
+            ListTile(title: const Text('Pi')),
+          ],
+        ),
       ),
       body: Center(
-        child: SwitchResponsive(
-          number: _inputNumber,
-          activated: _activated, 
-        ),
+        child: SwitchResponsive(number: _inputNumber, activated: _activated),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _showNumberInputDialog,
-        tooltip: 'Ingresar Número',
+        tooltip: 'Enter Number',
         child: const Icon(Icons.edit),
       ),
     );

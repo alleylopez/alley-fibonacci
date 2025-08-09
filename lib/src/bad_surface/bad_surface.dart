@@ -80,7 +80,7 @@ class _BadSurfaceState extends State<BadSurface> {
               itemCount: _fibonacciList.length,
               itemBuilder: (context, index) => ListTile(
                 title: Text(
-                  _fibonacciList[index].toString(),
+                  'Index: $index, Value: ${_fibonacciList[index]}',
                   style: const TextStyle(color: Colors.white),
                 ),
               ),
