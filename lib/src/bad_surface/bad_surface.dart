@@ -1,4 +1,4 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:alley_fibonacci/src/config.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 
@@ -39,7 +39,7 @@ class _BadSurfaceState extends State<BadSurface> {
 
     try {
       final response = await Dio().post(
-        dotenv.env['API_PATH']!,
+        apiPath,
         data: {'fibonacci_length': number},
         options: Options(headers: {'Content-Type': 'application/json'}),
       );

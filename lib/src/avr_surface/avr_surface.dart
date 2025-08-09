@@ -1,4 +1,4 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:alley_fibonacci/src/config.dart';
 import 'package:flutter/material.dart';
 import 'package:dio/dio.dart';
 import 'dart:io';
@@ -74,12 +74,8 @@ class _AvrSurfaceState extends State<AvrSurface> {
     });
 
     try {
-      assert(
-        dotenv.env['API_PATH'] != null,
-        'API_PATH is not defined in .env file',
-      );
       final response = await Dio().post(
-        dotenv.env['API_PATH']!,
+        apiPath,
         data: {'fibonacci_length': widget.number},
         options: Options(headers: {'Content-Type': 'application/json'}),
       );
